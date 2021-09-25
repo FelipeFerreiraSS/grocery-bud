@@ -4,7 +4,7 @@ import Alert from './Alert'
 
 function App() {
   const [name, setName] = useState('')
-  const [list, setlist] = useState([])
+  const [list, setList] = useState([])
   const [isEditing, setIsEditing] = useState(false)
   const [editId, setEditId] = useState(null)
   const [alert, setAlert] = useState({ show: false, msg: '', type: ''})
@@ -12,6 +12,16 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Deu certo')
+
+    if (!name) {
+      // display
+    } else if (name && isEditing) {
+
+    } else {
+      const newItem = {id: new Date().getTime().toString(), title:name}
+      setList([...list,newItem])
+      setName('')
+    }
   }
 
   return(
@@ -33,7 +43,7 @@ function App() {
           </div>
         </form>
         <div className="grocery-container">
-          <List />
+          <List items={list}/>
           <button className="clear-btn">limpar itens</button>
         </div>
       </section>
