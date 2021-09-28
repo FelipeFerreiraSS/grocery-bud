@@ -7,7 +7,11 @@ function App() {
   const [list, setList] = useState([])
   const [isEditing, setIsEditing] = useState(false)
   const [editId, setEditId] = useState(null)
-  const [alert, setAlert] = useState({ show: true, msg: 'hello', type: 'success'})
+  const [alert, setAlert] = useState({ 
+    show: false, 
+    msg: '', 
+    type: ''
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -15,6 +19,7 @@ function App() {
 
     if (!name) {
       // display
+      showAlert(true, 'danger', 'Digite um valor válido!')
     } else if (name && isEditing) {
 
     } else {
@@ -24,10 +29,14 @@ function App() {
     }
   }
 
+  const showAlert = (show = false, type = '', msg = '') => {
+    setAlert({ show, type, msg })
+  }
+
   return(
       <section className="section-center">
         <form className="grocery-form" onSubmit={handleSubmit}>
-          {alert.show && <Alert {...alert} />}
+          {alert.show && <Alert {...alert} removeAlert={showAlert}/>}
           <h3>Lsita de compras</h3>
           <div className="form-control">
             <input 
